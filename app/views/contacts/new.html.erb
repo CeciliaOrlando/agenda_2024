@@ -1,0 +1,35 @@
+<h1>< %= @contact.full_name %></h1>
+<%= image_tag @contact.photo if @contact.photo.attached? %>
+<p>Nickname: <%= @contact.nickname %></p>
+<p>Birthday: <%= @contact.birthday %></p>
+
+<h2>Teléfonos</h2>
+<ul>
+  <% @contact.phone_numbers.each do |phone_number| %>
+    <li>
+      <%= phone_number.number %> (<%= phone_number.emergency_number || "sin número de emergencia" %>)
+    </li>
+  <% end %>
+</ul>
+
+<h2>Dirección</h2>
+<p>
+  <%= @contact.address.try(:street) %>,
+  <%= @contact.address.try(:city) %>,
+  <%= @contact.address.try(:state) %>,
+  <%= @contact.address.try(:country) %> -
+  <%= @contact.address.try(:postal_code) %>
+</p>
+
+<h2>Categoría</h2>
+<ul>
+  <% Category::CATEGORIES.each do |category| %>
+    <li>
+      <%= category.capitalize %>:
+      <%= @contact.category.send(category) ? "Si" : "No" %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Editar', edit_contact_path(@contact) %> |
+<%= link_to 'Volver', contacts_path %>

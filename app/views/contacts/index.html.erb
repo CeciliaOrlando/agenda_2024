@@ -1,0 +1,57 @@
+<h1>Lista de todos tus contactos</h1>
+
+<ul>
+  <% @contacts.each do |contact| %>
+    <li>
+      <%= link_to contact.full_name, contact_path(contact) %> |
+      <%= link_to 'Editar', edit_contact_path(contact), class: 'btn btn-secondary' %> |
+      <%= link_to 'Eliminar', contact_path(contact), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este contacto?' }, class: 'btn btn-danger' %>
+    </li>
+  <% end %>
+</ul>
+<% if @contacts.any? %>
+  <% current_index = @contacts.index(@contact) %>
+  <% if current_index = 0 %>
+    <%= link_to 'Anterior', contact_path(@contacts[current_index - 1]), class: 'btn btn-secondary' %>
+  <% end %>
+  <% if current_index < @contacts.size - 1 %>
+    <%= link_to 'Siguiente', contact_path(@contacts[current_index + 1]), class: 'btn btn-secondary' %>
+  <% end %>
+<% end %>
+
+<%= link_to 'Agregar nuevo contacto', new_contact_path, class: 'btn btn-primary' %>
+
+
+<!-- Barra de búsqueda -->
+<%= form_tag contacts_path, method: :get, class: 'form-inline' do %>
+  <%= text_field_tag :search, params[:search], placeholder: 'Buscar contactos', class: 'form-control' %>
+  <%= submit_tag 'Buscar', class: 'btn btn-primary' %>
+<% end %>
+
+
+ <div class="container-sm mt-4">
+   <form action="personadb" method="post" class="form-signin">
+
+   <input type="hidden" class="form-control" name="opcion" value="insertar">
+   <h1>Registrar Contacto</h1><br>
+  <div class="form-group">
+    <label>Nombres</label>
+    <input type="text" class="form-control" name="nombres">
+  </div>
+  <div class="form-group">
+    <label>Apellidos</label>
+    <input type="text" class="form-control" name="apellidos">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="form-group">
+    <label>Celular</label>
+    <input type="text" class="form-control" name="celular">
+  </div>
+  <button type="submit" class="btn btn-primary">Grabar</button>
+  <a href="personadb" class="btn btn-secondary">Cancelar</a>
+
+</form>
+</div>
