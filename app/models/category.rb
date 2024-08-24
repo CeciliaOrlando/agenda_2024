@@ -1,8 +1,9 @@
 class Category < ApplicationRecord
   # Associations
   belongs_to :contact
-  CATEGORIES = %w[customer supplier family friend]
+  has_many :contacts
 
   # Validations
+  CATEGORIES = %w[Customer Supplier Family Friend].freeze
   validates :name, presence: true, inclusion: { in: CATEGORIES }
 end

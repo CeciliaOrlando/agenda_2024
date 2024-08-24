@@ -4,8 +4,8 @@ class ContactsController < ApplicationController
 
   def index
     @contacts = Contact.all
-    @contacts = Contact.order(:full_name).page(params[:page]).per(5)
-    @contacts = @contacts.where('full_name LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    # @contacts = Contact.order(:full_name).page(params[:page]).per(5)
+    # @contacts = @contacts.where('full_name LIKE ?', "%#{params[:search]}%") if params[:search].present?
   end
 
   def show

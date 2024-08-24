@@ -5,3 +5,5 @@ class Address < ApplicationRecord
     # Validations
     validates :street, :city, :state, :country, :postal_code, presence: true
 end
+
+

@@ -4,7 +4,7 @@ class CreateContacts < ActiveRecord::Migration[7.1]
       t.string :full_name
       t.string :nickname
       t.string :email
-      t.date :birthdate
+      t.date :birthday
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

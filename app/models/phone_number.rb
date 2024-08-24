@@ -6,3 +6,4 @@ class PhoneNumber < ApplicationRecord
   validates :number, presence: true
   validates :emergency_number, presence: true
 end
+

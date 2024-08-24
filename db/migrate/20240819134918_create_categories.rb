@@ -6,7 +6,6 @@ class CreateCategories < ActiveRecord::Migration[7.1]
       t.string :supplier
       t.string :family
       t.string :friend
-
       t.timestamps
     end
   end

@@ -77,3 +77,4 @@ group :test do
 end
   # Gem para el proyecto
   gem "cloudinary"
+  gem 'faker'
