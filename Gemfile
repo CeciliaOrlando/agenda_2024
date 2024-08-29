@@ -75,6 +75,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-  # Gem para el proyecto
+  # Gemas para el proyecto
   gem "cloudinary"
   gem 'faker'

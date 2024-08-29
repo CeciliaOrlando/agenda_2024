@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-|
+
   def index
     @contacts = Contact.all
     # @contacts = Contact.order(:full_name).page(params[:page]).per(5)
@@ -48,6 +48,9 @@ class ContactsController < ApplicationController
 
   private
 
+  def set_contact
+    @contact = Contact.find(params[:id])
+  end
 
   def contact_params
     params.require(:contact).permit(:full_name, :nickname, :birthday, :photo,
