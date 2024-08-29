@@ -1,34 +1,40 @@
-<div class="contact-show">
-  <h1 class="contact-name"><%= @contact.full_name %></h1>
-  <p class="contact-detail">
-    Email: <a href="mailto:<%= @contact.email %>"><%= @contact.email %></a>
-  </p>
-  <p class="contact-detail">
-    Phone: <%= @contact.phone_number %>
-  </p>
-  <!-- More details here -->
-  <p><%= link_to 'Back to Contacts', contacts_path, class: 'btn btn-secondary' %></p>
+<div class="d-flex justify-content-center">
+  <div class="contact-show container mx-auto p-4" style="border: 1px solid #E2786F; border-radius: 10px; padding: 50px; margin: 50px auto; width: 50%;">
+    <h1 class="contact-name text-center mb-4" style="text-align: center; width: 100%; font-weight: bold; color: #E2786F;"><%= @contact.full_name %></h1>
+    <div class="contact-details d-flex flex-column align-items-center">
+      <p class="mb-2" style="text-align: center; width: 100%;  color: #000000;">
+        Email: <a href="mailto:<%= @contact.email %>" class="text-decoration-none" style="color: #000000;"><%= @contact.email %></a>
+      </p>
+      <p class="mb-2" style="text-align: center; width: 100%;  color: #000000;">
+        Phone: <%= @contact.phone_number %>
+      </p>
+      <!-- More details here -->
+    </div>
+    <p class="mt-4 text-center">
+      <%= link_to 'Volver a los contactos', contacts_path, class: 'btn btn-danger px-4' %>
+    </p>
+  </div>
 </div>
 
 <style>
   .contact-show {
-    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .contact-name {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 1rem;
   }
 
-  .contact-detail {
+  .contact-details p {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
   }
 
-  .contact-detail a {
+  .contact-details a {
     color: #337ab7;
     text-decoration: none;
   }
 </style>
-

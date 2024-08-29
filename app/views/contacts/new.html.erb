@@ -1,10 +1,11 @@
-
 <%= form_with(model: @contact, local: true) do |form| %>
-  <div class="container-sm mt-4">
-      <%# <form action="personadb" method="post" class="form-signin">
+  <div class="container-sm mt-4" >
+      <form action="personadb" method="post" class="form-signin">
 
-      <input type="hidden" class="form-control" name="opcion" value="insertar"> %>
-        <h1>Registrar Contacto</h1><br>
+      <input type="hidden" class="form-control" name="opcion" value="insertar">
+        <div class="container-sm mt-4" style="text-align: center; width: 100%; font-weight: bold; color: #E2786F;">
+          <h1>Registrar Contacto</h1><br>
+        </div>
           <div class="form-group">
             <label>Nombres</label>
             <input type="text" class="form-control" name="nombres">
@@ -25,14 +26,18 @@
             <label>Fecha de Nacimiento</label>
             <input type="date" class="form-control" name="fecha_nacimiento">
           </div>
+          <div class="form-group">
+            <label>Dirección</label>
+            <input type="text" class="form-control" name="direccion">
+          </div>
           <div class="col-3">
-          <%= link_to 'Atrás', contacts_path, class: "btn btn-flat" %>
+          <%= link_to 'Atrás', contacts_path, class: 'btn btn-danger px-4'  %>
           <%= form_with(model: @contact, local: true) do |form| %>
-            <%= form.submit 'Grabar', class: "btn btn-flat" %>
+            <%= form.submit 'Grabar', class: 'btn btn-danger px-4'  %>
           <% end %>
-          <%= link_to 'Cancelar', contacts_path, class: "btn btn-flat" %>
-        </div>
+           </div>
 
       </form>
   </div>
 <% end %>
+
