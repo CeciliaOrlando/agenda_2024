@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_contact, only: %i[show edit update destroy]
-
+  before_action :set_contact, only: [:show, :edit, :update, :destroy]
+|
   def index
     @contacts = Contact.all
     # @contacts = Contact.order(:full_name).page(params[:page]).per(5)
@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @contact = Contact.find(params[:id])
+    @contact = Contact.find(contact_params[:id]) if @contact.nil?
   end
 
   def new
@@ -18,15 +18,19 @@ class ContactsController < ApplicationController
 
   def create
     @contact = current_user.contacts.new(contact_params)
+
     if @contact.save
-      redirect_to @contact, notice: 'Contacto creado exitosamente.'
+      # Redirige a la página de show del nuevo contacto
+      redirect_to contact_path(@contact), notice: 'Contacto creado con éxito.'
     else
+      # Si el contacto no se guarda, renderiza el formulario de nuevo contacto
+      flash.now[:alert] = 'No se pudo crear el contacto. Por favor, corrige los errores.'
       render :new
     end
   end
 
   def edit
-    @contact = Contact.find(params[:id]) if @contact.nil?
+    @contact = current_user.contacts.find(contact_params[:id])
   end
 
   def update
@@ -44,9 +48,6 @@ class ContactsController < ApplicationController
 
   private
 
-  def set_contact
-    @contact = current_user.contacts.find(params[:id])
-  end
 
   def contact_params
     params.require(:contact).permit(:full_name, :nickname, :birthday, :photo,

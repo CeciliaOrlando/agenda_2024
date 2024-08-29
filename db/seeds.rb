@@ -19,7 +19,7 @@ user = User.first || User.create!(
     user: user,
     full_name: Faker::Name.name,
     nickname: Faker::Name.first_name, # Usa `first_name` para apodos
-    email: Faker::Internet.email,
+    email: Faker::Internet.email
 )
 
   # Crea direcciones para cada contacto
@@ -36,7 +36,7 @@ user = User.first || User.create!(
 
   # Crea números de teléfono para cada contacto
   PhoneNumber.create!(
-    contact: contact,
+    contact: contact
     number: Faker::PhoneNumber.phone_number,
     emergency_number: '911' # Puedes ajustar esto según tus necesidades
   )
