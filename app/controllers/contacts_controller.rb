@@ -33,7 +33,7 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    @contact = current_user.contacts.find(contact_params[:id])
+    @contact = current_user.contacts.find(params[:id])
   end
 
   def update
