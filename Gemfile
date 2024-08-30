@@ -78,3 +78,4 @@ end
   # Gemas para el proyecto
   gem "cloudinary"
   gem 'faker'
+  gem "pg_search"

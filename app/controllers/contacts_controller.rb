@@ -3,20 +3,25 @@ class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
 
   def index
-    @contacts = Contact.all
-    @contacts = if params[:search].present?
-      Contact.where('name LIKE ?', "%#{params[:search]}%")
-    else
-      Contact.all
+    @contacts = current_user.contacts
+
+    if params[:query].present?
+      sql_subquery = <<~SQL
+        contacts.full_name ILIKE :query
+        OR contacts.email ILIKE :query
+        OR contacts.nickname ILIKE :query
+      SQL
+
+      @contacts = @contacts.where(sql_subquery, query: "%#{params[:query]}%")
     end
   end
 
   def show
-    @contact = Contact.find(contact_params[:id]) if @contact.nil?
+    @contact = current_user.contacts.find_by(id: params[:id])
   end
 
   def new
-    @contact = current_user.contacts.new
+    @contact = Contact.new
   end
 
   def create
@@ -37,22 +42,31 @@ class ContactsController < ApplicationController
   end
 
   def update
-    if @contact.update(contact_params)
-      redirect_to @contact, notice: 'Contacto actualizado exitosamente.'
-    else
-      render :edit
-    end
+    @contact = current_user.contacts.find(params[:id])
+  if @contact.update(contact_params)
+    redirect_to @contact, notice: 'Contacto actualizado con éxito.'
+  else
+    render :edit
+  end
   end
 
   def destroy
-    @contact.destroy
-    redirect_to contacts_url, notice: 'Contacto eliminado exitosamente.'
+    @contact = current_user.contacts.find_by(id: params[:id])
+
+    if @contact
+      @contact.destroy
+      redirect_to contacts_url, notice: 'Contacto eliminado exitosamente.'
+    else
+      redirect_to contacts_url, alert: 'Contacto no encontrado o no tienes permiso para eliminarlo.'
+    end
+  rescue ActiveRecord::RecordNotDestroyed
+    redirect_to contacts_url, alert: 'Hubo un problema al eliminar el contacto. Inténtalo de nuevo.'
   end
 
   private
 
   def set_contact
-    @contact = Contact.find(params[:id])
+    @contact = current_user.contacts.find_by(id: params[:id])
   end
 
   def contact_params

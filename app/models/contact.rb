@@ -1,4 +1,12 @@
 class Contact < ApplicationRecord
+  # Método para buscar solo por nombre
+  def self.search(query)
+    if query.present?
+      where('full_name ILIKE ?', "%#{query}%")
+    else
+      all
+    end
+  end
   # Associations
   belongs_to :user
   has_one :address, dependent: :destroy
@@ -10,5 +18,5 @@ class Contact < ApplicationRecord
   # Validations
   validates :full_name, :email, :nickname, presence: true
 
-end
 
+end
