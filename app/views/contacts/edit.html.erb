@@ -7,26 +7,26 @@
 
     <%= form_with(model: @contact, local: true) do |f| %>
   <div class="form-group">
-    <%= f.label :full_name, "Nombre Completo" %>
+    <b><%= f.label :full_name, "Nombre Completo" %></b>
     <%= f.text_field :full_name, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :email, "Correo Electrónico" %>
+    <b><%= f.label :email, "Correo Electrónico" %></b>
     <%= f.email_field :email, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :phone_number, "Teléfono" %>
-    <%= f.text_field :phone_number, class: "form-control" %>
+    <b><%= f.label :phone_number, "Teléfono" %></b>
+    <%= f.text_field :phone_number, value: @contact.phone_number, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= f.label :address, "Dirección" %>
-    <%= f.text_area :address, class: "form-control" %>
+   <b><%= f.label :address, "Dirección" %> </b>
+    <%= f.text_area :address, value: @contact.address, class: "form-control" %>
   </div>
 
-
+<br><br>
   <div class="d-flex justify-content-start ms-2">
   <%= f.submit "Actualizar contacto", class: 'btn btn-danger px-4 me-3' %>
   <%= link_to "Atrás", contacts_path, class: 'btn btn-danger px-4' %>

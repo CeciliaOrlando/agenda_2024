@@ -11,21 +11,10 @@
       <%= text_field_tag :query, params[:query], placeholder: 'Buscar contactos', style: 'width: 250px; margin-right: 10px;', autofocus: true %>
       <%= submit_tag 'Buscar', class: 'btn btn-danger' %>
     <% end %>
-  </div>
-
-  <!-- Filtro por query string -->
-  <% if params[:search].present? %>
-    <p style="margin-top: 10px;">Mostrando resultados para: <%= params[:search] %></p>
-    <% if @contacts.any? %>
-      <% if @contacts.count == 1 %>
-        <% redirect_to contact_path(@contacts.first) %>
-      <% else %>
-        <%# Display the search results here %>
-      <% end %>
-    <% else %>
-      <p>No se encontraron resultados para: <%= params[:search] %></p>
+    <% if params[:query].present? %>
+      <%= link_to 'Volver al inicio', contacts_path, class: 'btn btn-secondary ms-2' %>
     <% end %>
-  <% end %>
+  </div>
 
 
 <br><br>
@@ -43,7 +32,7 @@
     <tbody>
       <% @contacts.each do |contact| %>
         <tr>
-          <td style="vertical-align: middle; text-align: center;"><%= link_to contact.full_name, contact_path(contact) %></td>
+          <td style="vertical-align: middle; text-align: center;"><%= link_to "<b>#{contact.full_name}</b>".html_safe, contact_path(contact), style: "color: #E2786F; " %></td>
           <td style="vertical-align: middle; text-align: center;"><%= contact.email %></td>
           <td style="vertical-align: middle; text-align: center;"><%= contact.phone_number %></td>
           <td style="vertical-align: middle; text-align: center;">

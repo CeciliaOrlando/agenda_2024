@@ -17,8 +17,8 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @contact = current_user.contacts.find_by(id: params[:id])
-  end
+    @contact = current_user.contacts.find(params[:id])
+   end
 
   def new
     @contact = Contact.new
@@ -38,7 +38,7 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    @contact = current_user.contacts.find(params[:id])
+    @contact = Contact.find(params[:id])
   end
 
   def update
@@ -51,22 +51,21 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    @contact = current_user.contacts.find_by(id: params[:id])
-
-    if @contact
-      @contact.destroy
-      redirect_to contacts_url, notice: 'Contacto eliminado exitosamente.'
-    else
-      redirect_to contacts_url, alert: 'Contacto no encontrado o no tienes permiso para eliminarlo.'
+    @contact.destroy
+    respond_to do |format|
+      format.html { redirect_to contacts_url, notice: 'Contacto eliminado correctamente.' }
+      format.json { head :no_content }
+    endntacts_url, alert= 'Hubo un problema al eliminar el contacto. Inténtalo de nuevo.'
     end
-  rescue ActiveRecord::RecordNotDestroyed
-    redirect_to contacts_url, alert: 'Hubo un problema al eliminar el contacto. Inténtalo de nuevo.'
   end
 
   private
 
   def set_contact
-    @contact = current_user.contacts.find_by(id: params[:id])
+      @contact = current_user.contacts.find_by(id: params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to contacts_path, alert: 'Contacto no encontrado.'
+    end
   end
 
   def contact_params
@@ -75,4 +74,3 @@ class ContactsController < ApplicationController
                                     address_attributes: [:id, :street, :city, :state, :country, :postal_code, :latitude, :longitude],
                                     category_attributes: [:id, :family, :friend, :customer, :supplier])
   end
-end

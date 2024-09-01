@@ -1,8 +1,8 @@
 require 'faker'
 
 # Limpia los datos anteriores para evitar duplicados
-Address.destroy_all
 PhoneNumber.destroy_all
+Address.destroy_all
 Contact.destroy_all
 User.destroy_all
 
@@ -20,7 +20,7 @@ user = User.first || User.create!(
     full_name: Faker::Name.name,
     nickname: Faker::Name.first_name, # Usa `first_name` para apodos
     email: Faker::Internet.email
-)
+  )
 
   # Crea direcciones para cada contacto
   Address.create!(
@@ -36,7 +36,7 @@ user = User.first || User.create!(
 
   # Crea números de teléfono para cada contacto
   PhoneNumber.create!(
-    contact: contact
+    contact: contact,
     number: Faker::PhoneNumber.phone_number,
     emergency_number: '911' # Puedes ajustar esto según tus necesidades
   )

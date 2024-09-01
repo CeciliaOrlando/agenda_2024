@@ -7,6 +7,7 @@ class Contact < ApplicationRecord
       all
     end
   end
+
   # Associations
   belongs_to :user
   has_one :address, dependent: :destroy
@@ -17,6 +18,5 @@ class Contact < ApplicationRecord
 
   # Validations
   validates :full_name, :email, :nickname, presence: true
-
 
 end
