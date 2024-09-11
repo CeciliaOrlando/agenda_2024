@@ -1,37 +1,43 @@
 <div class="container-sm mt-4">
-    <div class="contact-show container mx-auto p-4" style="border: 1px solid #E2786F; border-radius: 10px; padding: 50px; margin: 50px auto; width: 50%;">
+  <div class="contact-show container mx-auto p-4 rounded-3 shadow-sm" style="border: 1px solid #E2786F; width: 50%;">
 
-  <%= form_with(model: @contact, local: true) do |form| %>
-    <div class="container-sm mt-4" style="text-align: center; width: 100%; font-weight: bold; color: #E2786F;">
-      <h1>Registrar Contacto</h1><br>
-    </div>
-    <div class="form-group">
-      <label>Nombres</label>
-      <input type="text" class="form-control" name="nombres">
-    </div>
-    <div class="form-group">
-      <label>Apellido</label>
-      <input type="text" class="form-control" name="apellidos">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email</label>
-      <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-    <div class="form-group">
-      <label>Celular</label>
-      <input type="text" class="form-control" name="celular">
-    </div>
-    <div class="form-group">
-      <label>Fecha de Nacimiento</label>
-      <input type="date" class="form-control" name="fecha_nacimiento">
-    </div>
-    <div class="form-group">
-      <label>Dirección</label>
-      <input type="text" class="form-control" name="direccion">
-    </div>
-    <div class="col-6">
-      <%= link_to 'Atrás', contacts_path, class: 'btn btn-danger px-4'  %>
-      <%= form.submit 'Guardar contacto', class: 'btn btn-danger px-4'  %>
-    </div>
-  <% end %>
+    <%= form_with(model: @contact, local: true) do |form| %>
+      <h1 class="text-center mb-4" style="font-weight: bold; color: #E2786F;">Registrar Contacto</h1>
+
+      <div class="form-group mb-3">
+        <%= form.label :full_name, "Nombres y Apellidos", class: "form-label" %>
+        <%= form.text_field :full_name, class: "form-control", placeholder: "" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :email, "Email", class: "form-label" %>
+        <%= form.email_field :email, class: "form-control", placeholder: "" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :phone_number, "Celular", class: "form-label" %>
+        <%= form.text_field :phone_number, class: "form-control", placeholder: "" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :date_of_birth, "Fecha de Nacimiento", class: "form-label" %>
+        <%= form.date_field :date_of_birth, class: "form-control" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :address, "Dirección", class: "form-label" %>
+        <%= form.text_field :address, class: "form-control", placeholder: "" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.label :photo, "Foto", class: "form-label" %>
+        <%= form.file_field :photo, class: "form-control-file", accept: "image/*" %>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <%= form.submit "Registrar", class: "btn btn-danger px-4" %>
+        <%= link_to "Cancelar", contacts_path, class: "btn btn-secondary px-4 ms-2" %>
+      </div>
+    <% end %>
+  </div>
 </div>

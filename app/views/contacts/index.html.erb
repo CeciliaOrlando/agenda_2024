@@ -34,7 +34,7 @@
         <tr>
           <td style="vertical-align: middle; text-align: center;"><%= link_to "<b>#{contact.full_name}</b>".html_safe, contact_path(contact), style: "color: #E2786F; " %></td>
           <td style="vertical-align: middle; text-align: center;"><%= contact.email %></td>
-          <td style="vertical-align: middle; text-align: center;"><%= contact.phone_number %></td>
+          <td style="vertical-align: middle; text-align: center;"><%= contact.phone_number.try(:number) || 'No tiene teléfono asignado' %></td>
           <td style="vertical-align: middle; text-align: center;">
             <%= link_to 'Editar', edit_contact_path(contact), class: 'btn btn-secondary' %>
             <%= link_to 'Eliminar', contact, method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este contacto?', turbo_confirm: '¿Estás seguro de que deseas eliminar este contacto?' }, class: 'btn btn-danger' %>

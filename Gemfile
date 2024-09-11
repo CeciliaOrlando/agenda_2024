@@ -80,4 +80,4 @@ end
   gem 'faker'
   gem "pg_search"
   gem 'phonelib'
-
+  gem "geocoder"

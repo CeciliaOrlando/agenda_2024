@@ -17,22 +17,18 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @contact = current_user.contacts.find(params[:id])
-   end
+     @contact = Contact.find(params[:id])
+  end
 
   def new
-    @contact = Contact.new
+    @contact = current_user.contacts.build
   end
 
   def create
-    @contact = current_user.contacts.new(contact_params)
-
+    @contact = current_user.contacts.build(contact_params)
     if @contact.save
-      # Redirige a la página de show del nuevo contacto
-      redirect_to contact_path(@contact), notice: 'Contacto creado con éxito.'
+      redirect_to @contact, notice: 'Contacto creado correctamente.'
     else
-      # Si el contacto no se guarda, renderiza el formulario de nuevo contacto
-      flash.now[:alert] = 'No se pudo crear el contacto. Por favor, corrige los errores.'
       render :new
     end
   end
@@ -43,13 +39,18 @@ class ContactsController < ApplicationController
 
   def update
     @contact = current_user.contacts.find(params[:id])
-  if @contact.update(contact_params)
-    redirect_to @contact, notice: 'Contacto actualizado con éxito.'
-  else
-    render :edit
-  end
+      if @contact.update(contact_params)
+        redirect_to @contact, notice: 'Contacto actualizado con éxito.'
+      else
+        render :edit
+      end
   end
 
+  # DELETE /contacts/1
+  # Destroys the requested contact.
+  #
+  # If the contact is successfully destroyed, it redirects to the contacts list.
+  # If the contact can't be destroyed, it renders the contacts list with an alert.
   def destroy
     @contact.destroy
     respond_to do |format|
@@ -63,10 +64,11 @@ class ContactsController < ApplicationController
 
   def set_contact
       @contact = current_user.contacts.find_by(id: params[:id])
-    rescue ActiveRecord::RecordNotFound
+      rescue ActiveRecord::RecordNotFound
       redirect_to contacts_path, alert: 'Contacto no encontrado.'
-    end
+      end
   end
+
 
   def contact_params
     params.require(:contact).permit(:full_name, :nickname, :birthday, :photo,
