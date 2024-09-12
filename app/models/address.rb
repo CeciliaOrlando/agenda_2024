@@ -1,8 +1,15 @@
 class Address < ApplicationRecord
+
+  def to_s
+    "#{street}, #{city}, #{state}, #{postal_code}"
+  end
+
+
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
-  
-    # Associations
+
+
+   # Associations
     belongs_to :contact
 
     # Validations

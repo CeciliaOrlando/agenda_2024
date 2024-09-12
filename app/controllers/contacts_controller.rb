@@ -71,8 +71,10 @@ class ContactsController < ApplicationController
 
 
   def contact_params
-    params.require(:contact).permit(:full_name, :nickname, :birthday, :photo,
-                                    phone_numbers_attributes: [:id, :number, :emergency_number, :_destroy],
-                                    address_attributes: [:id, :street, :city, :state, :country, :postal_code, :latitude, :longitude],
-                                    category_attributes: [:id, :family, :friend, :customer, :supplier])
+    params.require(:contact).permit(  :full_name, :nickname, :birthday, :email, photos: [],
+      phone_numbers_attributes: [:id, :number, :emergency_number, :_destroy],
+      address_attributes: [:id, :street, :city, :state, :country, :postal_code, :latitude, :longitude],
+      category_attributes: [:id, :family, :friend, :customer, :supplier]
+    )
   end
+

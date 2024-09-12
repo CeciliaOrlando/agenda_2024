@@ -5,16 +5,20 @@
 
       <p><strong>Correo Electronico:</strong> <%= @contact.email %></p>
 
-      <p><strong>Teléfono:</strong> <%= @contact.phone_number %></p>
+      <p><strong>Teléfono:</strong> <%= @contact.formatted_phone_number %></p>
 
-      <p><strong>Dirección:</strong> <%= @contact.address %></p>
+      <p><strong>Dirección:</strong> <%= @contact.formatted_address %></p>
 
-      <div class="mt-2 d-flex justify-content-center gap-2">
+
+          <div class="mt-2 d-flex justify-content-center gap-2">
         <%= link_to "Atrás", contacts_path, class: 'btn btn-danger px-2 py-1' %>
       </div>
     </div>
   </div>
 </div>
+
+
+
 
 
 <%# <style>
