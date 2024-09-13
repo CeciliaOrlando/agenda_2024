@@ -16,7 +16,6 @@
     <% end %>
   </div>
 
-
 <br><br>
 
 <div style="display: flex; justify-content: center; padding: 0 15px; ">
@@ -37,7 +36,8 @@
           <td style="vertical-align: middle; text-align: center;"><%= contact.phone_number.try(:number) || 'No tiene teléfono asignado' %></td>
           <td style="vertical-align: middle; text-align: center;">
             <%= link_to 'Editar', edit_contact_path(contact), class: 'btn btn-secondary' %>
-            <%= link_to 'Eliminar', contact, method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este contacto?', turbo_confirm: '¿Estás seguro de que deseas eliminar este contacto?' }, class: 'btn btn-danger' %>
+           <%= link_to 'Eliminar', contact_path(contact), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este contacto?' }, class: 'btn btn-danger' %>
+
           </td>
         </tr>
       <% end %>

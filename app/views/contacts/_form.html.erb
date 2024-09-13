@@ -4,3 +4,10 @@
   <%= f.input :photos, as: :file, input_html: { multiple: true } %>
   <!-- [...] -->
 <% end %>
+
+
+<%= simple_form(model: contact) do |form| %>
+  <%= form.label :address_id %>
+  <%= form.collection_select :address_id, Address.all, :id, :full_address, prompt: "Selecciona una dirección" %>
+  <%= form.submit %>
+<% end %>

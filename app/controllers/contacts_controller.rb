@@ -17,7 +17,7 @@ class ContactsController < ApplicationController
   end
 
   def show
-     @contact = Contact.find(params[:id])
+    # @contact is already set by set_contact
   end
 
   def new
@@ -34,47 +34,40 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    @contact = Contact.find(params[:id])
+    # @contact is already set by set_contact
   end
 
   def update
-    @contact = current_user.contacts.find(params[:id])
-      if @contact.update(contact_params)
-        redirect_to @contact, notice: 'Contacto actualizado con éxito.'
-      else
-        render :edit
-      end
+    if @contact.update(contact_params)
+      redirect_to @contact, notice: 'Contacto actualizado con éxito.'
+    else
+      render :edit
+    end
   end
 
-  # DELETE /contacts/1
-  # Destroys the requested contact.
-  #
-  # If the contact is successfully destroyed, it redirects to the contacts list.
-  # If the contact can't be destroyed, it renders the contacts list with an alert.
   def destroy
     @contact.destroy
     respond_to do |format|
       format.html { redirect_to contacts_url, notice: 'Contacto eliminado correctamente.' }
       format.json { head :no_content }
-    endntacts_url, alert= 'Hubo un problema al eliminar el contacto. Inténtalo de nuevo.'
     end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to contacts_path, alert: 'Hubo un problema al eliminar el contacto. Inténtalo de nuevo.'
   end
 
   private
 
   def set_contact
-      @contact = current_user.contacts.find_by(id: params[:id])
-      rescue ActiveRecord::RecordNotFound
-      redirect_to contacts_path, alert: 'Contacto no encontrado.'
-      end
+    @contact = current_user.contacts.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to contacts_path, alert: 'Contacto no encontrado.'
   end
 
-
   def contact_params
-    params.require(:contact).permit(  :full_name, :nickname, :birthday, :email, photos: [],
+    params.require(:contact).permit(:full_name, :nickname, :birthday, :email, photos: [],
       phone_numbers_attributes: [:id, :number, :emergency_number, :_destroy],
       address_attributes: [:id, :street, :city, :state, :country, :postal_code, :latitude, :longitude],
       category_attributes: [:id, :family, :friend, :customer, :supplier]
     )
   end
-
+end

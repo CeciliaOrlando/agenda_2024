@@ -24,7 +24,7 @@ class Contact < ApplicationRecord
 
   # Associations
   belongs_to :user
-  has_one :address, dependent: :destroy
+   has_one :address, dependent: :destroy
   has_one :phone_number, dependent: :destroy
   #has_many_attached :photos
 

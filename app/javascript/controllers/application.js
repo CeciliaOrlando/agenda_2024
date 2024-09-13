@@ -8,3 +8,5 @@ window.Stimulus   = application
 
 export { application }
 //= require rails-ujs
+
+require("@rails/ujs").start()
