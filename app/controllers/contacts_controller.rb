@@ -18,6 +18,14 @@ class ContactsController < ApplicationController
 
   def show
     # @contact is already set by set_contact
+    @flat = Address.find_by(contact_id: @contact.id)
+    # The `geocoded` scope filters only flats with coordinates
+    @markers = [
+      {
+        lat: @flat.latitude,
+        lng: @flat.longitude
+      }
+    ]
   end
 
   def new
@@ -26,10 +34,10 @@ class ContactsController < ApplicationController
 
   def create
     @contact = current_user.contacts.build(contact_params)
-    if @contact.save
+    if @contact.save! 
       redirect_to @contact, notice: 'Contacto creado correctamente.'
     else
-      render :new
+      render :new, status: :unprocessable_entity # permite mostrar errores en el formulario de creación
     end
   end
 
@@ -64,10 +72,7 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:full_name, :nickname, :birthday, :email, photos: [],
-      phone_numbers_attributes: [:id, :number, :emergency_number, :_destroy],
-      address_attributes: [:id, :street, :city, :state, :country, :postal_code, :latitude, :longitude],
-      category_attributes: [:id, :family, :friend, :customer, :supplier]
+    params.require(:contact).permit(:full_name, :nickname, :email, :birthday
     )
   end
 end
