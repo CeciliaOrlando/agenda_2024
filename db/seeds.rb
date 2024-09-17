@@ -13,14 +13,18 @@ user = User.first || User.create!(
   password_confirmation: '12345678'
 )
 
-# Crea contactos
+require 'faker'
+
 20.times do
   contact = Contact.create!(
     user: user,
     full_name: Faker::Name.name,
     nickname: Faker::Name.first_name, # Usa `first_name` para apodos
-    email: Faker::Internet.email
+    email: Faker::Internet.email,
+    contact_address: Faker::Address.full_address, # Agrega dirección
+    phone_number: Faker::PhoneNumber.phone_number # Agrega número de teléfono
   )
+
 
   # Crea direcciones para cada contacto
   Address.create!(

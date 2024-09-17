@@ -34,7 +34,7 @@ class ContactsController < ApplicationController
 
   def create
     @contact = current_user.contacts.build(contact_params)
-    if @contact.save! 
+    if @contact.save!
       redirect_to @contact, notice: 'Contacto creado correctamente.'
     else
       render :new, status: :unprocessable_entity # permite mostrar errores en el formulario de creación
@@ -72,7 +72,7 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:full_name, :nickname, :email, :birthday
+    params.require(:contact).permit(:full_name, :nickname, :email, :birthday, :contact_address, :contact_fone 
     )
   end
 end
