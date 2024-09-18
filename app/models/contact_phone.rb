@@ -1,4 +1,4 @@
-class PhoneNumber < ApplicationRecord
+class ContactPhone < ApplicationRecord
   # Associations
   belongs_to :contact
 

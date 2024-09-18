@@ -1,4 +1,4 @@
-class AddressController < ActionController::Base
+class ContactAddressController < ActionController::Base
   def index
     @flats = Flat.all
     # The `geocoded` scope filters only flats with coordinates

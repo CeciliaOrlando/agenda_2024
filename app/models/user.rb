@@ -9,7 +9,8 @@ class User < ApplicationRecord
         # validatable : ayuda a tu aplicación a verifcar si los datos y la contraseña de una persona son correctos.
 
     # Associations
-  has_many :contacts
+  # has_many :contacts
+  has_one :contact_address
 
     # Validations
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
