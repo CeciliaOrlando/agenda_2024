@@ -11,6 +11,7 @@ class User < ApplicationRecord
     # Associations
   # has_many :contacts
   has_one :contact_address
+  has_many :contacts
 
     # Validations
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }

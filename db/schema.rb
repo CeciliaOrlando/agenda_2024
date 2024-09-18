@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_18_141521) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_18_153258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_141521) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contact_phones", force: :cascade do |t|
+    t.string "number"
+    t.bigint "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_phones_on_contact_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "full_name"
     t.string "nickname"
@@ -118,6 +126,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_141521) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "contacts"
   add_foreign_key "categories", "contacts"
+  add_foreign_key "contact_phones", "contacts"
   add_foreign_key "contacts", "contact_addresses"
   add_foreign_key "contacts", "users"
   add_foreign_key "phone_numbers", "contacts"

@@ -31,6 +31,6 @@ class Contact < ApplicationRecord
   accepts_nested_attributes_for :contact_address  #te permite manejar los atributos del modelo Address directamente a través del modelo User,
 
   # Validations
-  validates :full_name, :email, :contact_phone, :contact_address, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :full_name, presence: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 end
