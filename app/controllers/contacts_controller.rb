@@ -18,7 +18,8 @@ class ContactsController < ApplicationController
 
   def show
     # @contact is already set by set_contact
-    @flat = Address.find_by(contact_id: @contact.id)
+    # @flat = contact_address.find_by(contact_id: @contact.id)
+    @flat = @contact.contact_address
     # The `geocoded` scope filters only flats with coordinates
     @markers = [
       {

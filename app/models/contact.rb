@@ -8,9 +8,9 @@ class Contact < ApplicationRecord
     end
   end
 
-  def formatted_phone_number
-    if contact_phone.is_a?(PhoneNumber)
-      contact_phone_.number.gsub(/\D/, '').tap do |number|
+  def formatted_contact_phone
+    if contact_phone.is_a?(ContactPhone)
+      contact_phone.number.gsub(/\D/, '').tap do |number|
         number.insert(0, '(').insert(4, ') ').insert(9, '-')
       end
     else
@@ -18,7 +18,7 @@ class Contact < ApplicationRecord
     end
   end
 
-  def formatted_address
+  def formatted_contact_address
     "#{contact_address.street}, #{contact_address.city}, #{contact_address.state} #{contact_address.postal_code}"
   end
 
