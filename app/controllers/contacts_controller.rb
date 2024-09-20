@@ -31,16 +31,23 @@ class ContactsController < ApplicationController
 
   def new
     @contact = current_user.contacts.build
+    @contact.build_contact_address
   end
 
   def create
-    @contact = current_user.contacts.build(contact_params)
-    if @contact.save!
+    @contact = current_user.contacts.build(contact_params) # Crea un nuevo objeto Contact
+    contact_address = ContactAddress.new(contact_params[:contact_address_attributes]) # Crea un nuevo ContactAddress
+
+    # Asocia el ContactAddress al Contact
+    @contact.contact_address = contact_address
+
+    if @contact.save
       redirect_to @contact, notice: 'Contacto creado correctamente.'
     else
-      render :new, status: :unprocessable_entity # permite mostrar errores en el formulario de creación
+      render :new, status: :unprocessable_entity
     end
   end
+
 
   def edit
     # @contact is already set by set_contact
@@ -73,7 +80,7 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:full_name, :nickname, :email, :birthday, :contact_address, :contact_phone
-    )
+    params.require(:contact).permit(:full_name, :nickname, :email, :birthday, :contact_phone, contact_address_attributes: [:street, :city, :state, :country, :postal_code])
   end
+
 end

@@ -1,6 +1,5 @@
 <div class="container-sm mt-4">
   <div class="contact-show container mx-auto p-4 rounded-3 shadow-sm" style="border: 1px solid #E2786F; width: 50%;">
-
     <%= form_with(model: @contact, local: true) do |form| %>
       <h1 class="text-center mb-4" style="font-weight: bold; color: #E2786F;">Registrar Contacto</h1>
 
@@ -10,23 +9,38 @@
       </div>
 
       <div class="form-group mb-3">
-        <%= form.label :email, "Email", class: "form-label" %>
+        <%= form.label :email, "Correo electrónico", class: "form-label" %>
         <%= form.email_field :email, class: "form-control", placeholder: "" %>
       </div>
 
       <div class="form-group mb-3">
-        <%= form.label :phone_number, "Celular", class: "form-label" %>
-        <%= form.text_field :phone_number, class: "form-control", placeholder: "" %>
+        <%= form.label :nickname, "Apodo", class: "form-label" %>
+        <%= form.text_field :nickname, class: "form-control", placeholder: "" %>
       </div>
 
       <div class="form-group mb-3">
-        <%= form.label :date_of_birth, "Fecha de Nacimiento", class: "form-label" %>
-        <%= form.date_field :date_of_birth, class: "form-control" %>
+        <%= form.label :birthday, "Fecha de Nacimiento", class: "form-label" %>
+        <%= form.date_field :birthday, class: "form-control" %>
       </div>
 
       <div class="form-group mb-3">
-        <%= form.label :address, "Dirección", class: "form-label" %>
-        <%= form.text_field :address, class: "form-control", placeholder: "" %>
+        <%= form.label :contact_phone, "Número de Teléfono", class: "form-label" %>
+        <%= form.text_field :contact_phone, class: "form-control", placeholder: "" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= form.fields_for :contact_address do |address_form| %>
+          <%= address_form.label :street, "Dirección", class: "form-label" %>
+          <%= address_form.text_field :street, class: "form-control", placeholder: "" %>
+          <%= address_form.label :city, "Ciudad", class: "form-label" %>
+          <%= address_form.text_field :city, class: "form-control", placeholder: "" %>
+          <%= address_form.label :state, "Estado", class: "form-label" %>
+          <%= address_form.text_field :state, class: "form-control", placeholder: "" %>
+          <%= address_form.label :country, "País", class: "form-label" %>
+          <%= address_form.text_field :country, class: "form-control", placeholder: "" %>
+          <%= address_form.label :postal_code, "Código Postal", class: "form-label" %>
+          <%= address_form.number_field :postal_code, class: "form-control", placeholder: "" %>
+        <% end %>
       </div>
 
       <div class="form-group mb-3">
@@ -37,6 +51,17 @@
       <div class="d-flex justify-content-center">
         <%= form.submit "Registrar", class: "btn btn-danger px-4" %>
         <%= link_to "Cancelar", contacts_path, class: "btn btn-secondary px-4 ms-2" %>
+      </div>
+    <% end %>
+
+    <% if @contact.errors.any? %>
+      <div class="alert alert-danger">
+        <h4>Errores:</h4>
+        <ul>
+          <% @contact.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %>
   </div>

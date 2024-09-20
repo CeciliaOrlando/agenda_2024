@@ -11,6 +11,7 @@ class ContactAddress < ApplicationRecord
 
   # Associations
   has_many :contacts
+  belongs_to :contact
 
   # Validations
   validates :street, :city, :state, :country, :postal_code, presence: true
