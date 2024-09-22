@@ -35,16 +35,24 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = current_user.contacts.build(contact_params) # Crea un nuevo objeto Contact
-    contact_address = ContactAddress.new(contact_params[:contact_address_attributes]) # Crea un nuevo ContactAddress
+    @contact = current_user.contacts.build(contact_params)
 
-    # Asocia el ContactAddress al Contact
-    @contact.contact_address = contact_address
+    puts contact_params.inspect
 
-    if @contact.save
-      redirect_to @contact, notice: 'Contacto creado correctamente.'
+    # Verifica que contact_address_attributes sea un Hash
+    if contact_params[:contact_address_attributes].is_a?(Hash)
+      contact_address = ContactAddress.new(contact_params[:contact_address_attributes])
     else
-      render :new, status: :unprocessable_entity
+      # Maneja el error de manera apropiada, por ejemplo, estableciendo un mensaje de error
+      flash[:error] = "Dirección de contacto no válida."
+      render :new and return
+    end
+
+    if @contact.save && contact_address.save
+      # Redirige o muestra un mensaje de éxito
+    else
+      # Maneja los errores, por ejemplo, renderizando el formulario de nuevo
+      render :new
     end
   end
 
@@ -80,7 +88,13 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:full_name, :nickname, :email, :birthday, :contact_phone, contact_address_attributes: [:street, :city, :state, :country, :postal_code])
+    params.require(:contact).permit(:full_name,
+      :nickname,
+      :email,
+      :birthday,
+      :contact_phone,
+      contact_address_attributes: [:street, :city, :state, :country, :postal_code]
+    )
   end
 
 end

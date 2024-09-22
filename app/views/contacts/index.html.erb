@@ -21,7 +21,7 @@
 <div style="display: flex; justify-content: center; padding: 0 15px; ">
   <table class="table table-bordered" style="border-spacing: 10px 0px; max-width: 100%; width: 100%; margin: 0 auto; border: 1px solid #E2786F; ">
     <thead>
-      <tr style="background-color: #F8F9FA; ">
+      <tr style="background-color: #F8F9FA; text-align: center;">
         <th style="width: 15%; color: #E2786F;">Nombre</th>
         <th style="width: 20%; color: #E2786F;">Email</th>
         <th style="width: 20%; color: #E2786F;">Celular</th>
@@ -36,7 +36,7 @@
           <td style="vertical-align: middle; text-align: center;"><%= contact.contact_phone.try(:number) || 'No tiene teléfono asignado' %></td>
           <td style="vertical-align: middle; text-align: center;">
             <%= link_to 'Editar', edit_contact_path(contact), class: 'btn btn-secondary' %>
-           <%= link_to 'Eliminar', contact_path(contact), method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este contacto?' }, class: 'btn btn-danger' %>
+           <%= link_to 'Eliminar',contact , method: :delete, data: { confirm: '¿Estás seguro de que deseas eliminar este contacto?' }, class: 'btn btn-danger' %>
 
           </td>
         </tr>
