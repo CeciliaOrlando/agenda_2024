@@ -3,5 +3,5 @@ class ContactPhone < ApplicationRecord
   #belongs_to :contact
 
   # Validations
-  validates :number, presence: true
+  validates :contact_phone, presence: true, format: { with: /\A\d{10}\z/, message: "debe tener 10 dígitos" }
  end

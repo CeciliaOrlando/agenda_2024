@@ -7,7 +7,7 @@ class ContactAddress < ApplicationRecord
 
   # Configuración de geocoding
   geocoded_by :full_address
-  #after_validation :geocode, if: :will_save_change_to_street?
+  after_validation :geocode, if: :will_save_change_to_street?
 
   # Associations
   has_many :contacts

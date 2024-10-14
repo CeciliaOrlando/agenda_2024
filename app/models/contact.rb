@@ -26,7 +26,7 @@ class Contact < ApplicationRecord
   belongs_to :user
   has_one :contact_address
   belongs_to :contact_address,  dependent: :destroy
-  has_many :contact_phone, dependent: :destroy
+  has_one :contact_phone, dependent: :destroy
   #has_many_attached :photos
 
   accepts_nested_attributes_for :contact_address  #te permite manejar los atributos del modelo Address directamente a través del modelo User,
